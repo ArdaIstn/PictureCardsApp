@@ -9,10 +9,32 @@
         android:id="@+id/randomWordsFragment"
         android:name="com.example.picturecardsapp.ui.fragments.RandomWordsFragment"
         android:label="fragment_random_words"
-        tools:layout="@layout/fragment_random_words" />
+        tools:layout="@layout/fragment_random_words">
+        <action
+            android:id="@+id/actionRandomWordsToDetail"
+            app:destination="@id/randomWordsDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/learnedWordsFragment"
         android:name="com.example.picturecardsapp.ui.fragments.LearnedWordsFragment"
         android:label="fragment_learned_words"
-        tools:layout="@layout/fragment_learned_words" />
+        tools:layout="@layout/fragment_learned_words">
+        <action
+            android:id="@+id/actionLearnedWordsToDetail"
+            app:destination="@id/learnedWordsDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/randomWordsDetailFragment"
+        android:name="com.example.picturecardsapp.ui.fragments.RandomWordsDetailFragment"
+        android:label="fragment_random_words_detail"
+        tools:layout="@layout/fragment_random_words_detail">
+        <argument
+            android:name="wordModel"
+            app:argType="com.example.picturecardsapp.data.WordModel" />
+    </fragment>
+    <fragment
+        android:id="@+id/learnedWordsDetailFragment"
+        android:name="com.example.picturecardsapp.ui.fragments.LearnedWordsDetailFragment"
+        android:label="fragment_learned_words_detail"
+        tools:layout="@layout/fragment_learned_words_detail" />
 </navigation>
