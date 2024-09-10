@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_activity_nav"
+    app:startDestination="@id/randomWordsFragment">
+
+    <fragment
+        android:id="@+id/randomWordsFragment"
+        android:name="com.example.picturecardsapp.ui.fragments.RandomWordsFragment"
+        android:label="fragment_random_words"
+        tools:layout="@layout/fragment_random_words" />
+    <fragment
+        android:id="@+id/learnedWordsFragment"
+        android:name="com.example.picturecardsapp.ui.fragments.LearnedWordsFragment"
+        android:label="fragment_learned_words"
+        tools:layout="@layout/fragment_learned_words" />
+</navigation>
