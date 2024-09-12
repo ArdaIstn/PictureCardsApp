@@ -30,11 +30,15 @@
         tools:layout="@layout/fragment_random_words_detail">
         <argument
             android:name="wordModel"
-            app:argType="com.example.picturecardsapp.data.WordModel" />
+            app:argType="com.example.picturecardsapp.data.model.WordModel" />
     </fragment>
     <fragment
         android:id="@+id/learnedWordsDetailFragment"
         android:name="com.example.picturecardsapp.ui.fragments.LearnedWordsDetailFragment"
         android:label="fragment_learned_words_detail"
-        tools:layout="@layout/fragment_learned_words_detail" />
+        tools:layout="@layout/fragment_learned_words_detail" >
+        <argument
+            android:name="wordModel"
+            app:argType="com.example.picturecardsapp.data.model.WordModel" />
+    </fragment>
 </navigation>
