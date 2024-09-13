@@ -19,9 +19,13 @@ import java.util.Locale
 
 
 class LearnedWordsDetailFragment : Fragment(), TextToSpeech.OnInitListener {
+
     private lateinit var binding: FragmentLearnedWordsDetailBinding
     private lateinit var textToSpeech: TextToSpeech
     private var isEnglish: Boolean = true
+    private val sharedPreferences: SharedPreferences by lazy {
+        requireActivity().getSharedPreferences("learned_words", Context.MODE_PRIVATE)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -33,19 +37,28 @@ class LearnedWordsDetailFragment : Fragment(), TextToSpeech.OnInitListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val wordModel = getWordModelFromArgs()
 
+        setupWordDetails(wordModel)
+        setupClickListeners(wordModel)
+    }
+
+    private fun getWordModelFromArgs(): WordModel {
         val bundle: LearnedWordsDetailFragmentArgs by navArgs()
-        val wordModel = bundle.wordModel
+        return bundle.wordModel
+    }
 
+    private fun setupWordDetails(wordModel: WordModel) {
         with(binding) {
             tvEnglishNameLearned.text = wordModel.englishName
             tvTurkishNameLearned.text = wordModel.turkishName
             tvEnglishSentenceLearned.text = wordModel.englishSentence
             tvTurkishSentenceLearned.text = wordModel.turkishSentence
             ivWordLearned.setImageResource(wordModel.image)
-
         }
+    }
 
+    private fun setupClickListeners(wordModel: WordModel) {
         binding.listenEnglishLearned.setOnClickListener {
             isEnglish = true
             speakOut(wordModel.englishSentence)
@@ -56,43 +69,51 @@ class LearnedWordsDetailFragment : Fragment(), TextToSpeech.OnInitListener {
             speakOut(wordModel.turkishSentence)
         }
 
-
-        // "Unlearned" butonuna tıklayınca kelimeyi silip önceki ekrana dönecek
         binding.btnUnlearned.setOnClickListener {
-            // SharedPreferences'e eriş
-            val sharedPreferences: SharedPreferences =
-                requireActivity().getSharedPreferences("learned_words", Context.MODE_PRIVATE)
-            val editor = sharedPreferences.edit()
-
-            // Mevcut öğrenilmiş kelimeleri al
-            val gson = Gson()
-            val learnedWordsJson = sharedPreferences.getString("learned_words_list", null)
-            val learnedWords = if (learnedWordsJson != null) {
-                gson.fromJson(learnedWordsJson, Array<WordModel>::class.java).toMutableList()
-            } else {
-                mutableListOf()
-            }
-
-            // Kelimeyi öğrenilmişler listesinden çıkar
-            if (learnedWords.contains(wordModel)) {
-                learnedWords.remove(wordModel)
-            }
-
-            // Güncellenmiş listeyi tekrar SharedPreferences'e kaydet
-            val updatedLearnedWordsJson = gson.toJson(learnedWords)
-            editor.putString("learned_words_list", updatedLearnedWordsJson)
-            editor.apply()
-
-            // Fragment'e geri dön
-            Snackbar.make(
-                it, "${wordModel.englishName} remove from learned words", Snackbar.LENGTH_SHORT
-            ).show()
-            findNavController().navigateUp()
+            unlearnWord(wordModel)
         }
 
         binding.btnBackLearned.setOnClickListener {
             findNavController().navigateUp()
         }
+    }
+
+    private fun unlearnWord(wordModel: WordModel) {
+        val learnedWords = getLearnedWords().toMutableList()
+
+
+        if (learnedWords.contains(wordModel)) {
+            learnedWords.remove(wordModel)
+        }
+
+
+        saveLearnedWords(learnedWords)
+
+        Snackbar.make(binding.root, "${wordModel.englishName} Unlearned!", Snackbar.LENGTH_SHORT)
+            .show()
+        findNavController().navigateUp()
+    }
+
+    private fun getLearnedWords(): List<WordModel> {
+        val learnedWordsJson = sharedPreferences.getString("learned_words_list", null)
+        return if (!learnedWordsJson.isNullOrEmpty()) {
+            try {
+                Gson().fromJson(learnedWordsJson, Array<WordModel>::class.java).toList()
+            } catch (e: Exception) {
+                Log.e("LearnedWordsDetail", "Error parsing learned words", e)
+                emptyList()
+            }
+        } else {
+            emptyList()
+        }
+    }
+
+    private fun saveLearnedWords(learnedWords: List<WordModel>) {
+        val editor = sharedPreferences.edit()
+        val gson = Gson()
+        val updatedLearnedWordsJson = gson.toJson(learnedWords)
+        editor.putString("learned_words_list", updatedLearnedWordsJson)
+        editor.apply()
     }
 
     override fun onInit(status: Int) {
@@ -108,11 +129,8 @@ class LearnedWordsDetailFragment : Fragment(), TextToSpeech.OnInitListener {
     }
 
     private fun speakOut(text: String) {
-        if (isEnglish) {
-            textToSpeech.language = Locale.US
-        } else {
-            textToSpeech.language = Locale("tr", "TR") // Türkçe için dil ayarı
-        }
+        textToSpeech.language =
+            if (isEnglish) Locale.US else Locale("tr", "TR") // Türkçe için dil ayarı
         textToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null, "")
     }
 
