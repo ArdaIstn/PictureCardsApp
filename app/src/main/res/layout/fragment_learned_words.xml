@@ -36,7 +36,7 @@
         android:id="@+id/tvEmpty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:text="Your list seems empty. Come on, start learning now!"
         android:textAlignment="center"
         android:textColor="#FF5722"
