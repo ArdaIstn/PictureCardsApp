@@ -8,6 +8,17 @@ Additionally,it also includes features such as saved learned words, listening to
 
 ![app_gif](https://github.com/user-attachments/assets/ff8659a8-c957-4dfc-a00a-664a8714913c)
 
+## Dark Mode
+
+<p align="center">
+    <img src="https://github.com/user-attachments/assets/b84a9224-804c-4b76-be36-8bc56b0f045b" alt="darkmode3" width="300"/>
+    <img src="https://github.com/user-attachments/assets/efb7b5a8-5a17-4bcd-8970-9d03f69bcf68" alt="darkmode2" width="300"/>
+    <img src="https://github.com/user-attachments/assets/c1693eef-01b4-49cb-b1ff-fca65bee052e" alt="darkmode1" width="300"/>
+  
+</p>
+
+
+
 
 ## Features
 
@@ -37,6 +48,7 @@ Additionally,it also includes features such as saved learned words, listening to
 - **ViewModel**: Ensures the data in the app is preserved independently of UI states, like screen rotations.
 - **ConstraintLayout**: Main layout structure used for managing the UI.
 - **Lottie**: Used for integrating animations in the app.
+- **Dark Theme**
 
 
 ## Installation
