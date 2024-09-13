@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="fragment_color">#3C3D37</color>
+    <color name="cardview_color">#2A2727</color>
+    <color name="fragment_detail_color">#3C3D37</color>
+    <color name="button_color">#697565</color>
+    <color name="text_english_color">#FF000000</color>
+    <color name="text_turkish_color">@color/black</color>
+    <color name="status_bar_color">#181C14</color>
+    <color name="bottom_nav_color">#545050</color>
+    <color name="text_view_empty">@color/black</color>
+
+</resources>
