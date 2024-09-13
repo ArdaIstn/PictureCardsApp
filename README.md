@@ -11,9 +11,9 @@ Additionally,it also includes features such as saved learned words, listening to
 ## Dark Mode
 
 <p align="center">
-    <img src="https://github.com/user-attachments/assets/b84a9224-804c-4b76-be36-8bc56b0f045b" alt="darkmode3" width="300"/>
-    <img src="https://github.com/user-attachments/assets/efb7b5a8-5a17-4bcd-8970-9d03f69bcf68" alt="darkmode2" width="300"/>
-    <img src="https://github.com/user-attachments/assets/c1693eef-01b4-49cb-b1ff-fca65bee052e" alt="darkmode1" width="300"/>
+    <img src="https://github.com/user-attachments/assets/b84a9224-804c-4b76-be36-8bc56b0f045b" alt="darkmode3" width="200"/>
+    <img src="https://github.com/user-attachments/assets/efb7b5a8-5a17-4bcd-8970-9d03f69bcf68" alt="darkmode2" width="200"/>
+    <img src="https://github.com/user-attachments/assets/c1693eef-01b4-49cb-b1ff-fca65bee052e" alt="darkmode1" width="200"/>
   
 </p>
 
