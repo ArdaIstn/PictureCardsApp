@@ -2,4 +2,12 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="fragment_color">#A1D6B2</color>
+    <color name="cardview_color">#E8B86D</color>
+    <color name="fragment_detail_color">#F1F3C2</color>
+    <color name="button_color">#E85C0D</color>
+    <color name="text_english_color">#081A73</color>
+    <color name="text_turkish_color">#FF0000</color>
+    <color name="status_bar_color">#F4DEB3</color>
+
 </resources>
