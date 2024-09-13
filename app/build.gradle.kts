@@ -39,6 +39,7 @@ android {
 }
 
 dependencies {
+    implementation (libs.lottie)
     implementation (libs.gson)
     implementation(libs.androidx.swiperefreshlayout)
     implementation(libs.androidx.navigation.fragment)
