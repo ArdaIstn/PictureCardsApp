@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cardview_color"
+    android:backgroundTint="@color/fragment_detail_color"
+    android:orientation="vertical"
+    tools:context=".ui.fragments.RandomWordsDetailFragment">
+
+    <ImageView
+        android:id="@+id/listenTurkishLearned"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/listen_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivTurkishLearned" />
+
+    <TextView
+        android:id="@+id/tvTurkishSentenceLearned"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivTurkishLearned"
+        app:layout_constraintTop_toBottomOf="@+id/tvTurkishNameLearned"
+        tools:text="Bir elma yemeyi severim." />
+
+    <TextView
+        android:id="@+id/tvTurkishNameLearned"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/text_turkish_color"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivTurkishLearned"
+        app:layout_constraintTop_toTopOf="@+id/ivTurkishLearned"
+        tools:text="Elma" />
+
+    <ImageView
+        android:id="@+id/ivTurkishLearned"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/turkish"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/listenEnglishLearned" />
+
+    <TextView
+        android:id="@+id/tvEnglishSentenceLearned"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivEnglishLearned"
+        app:layout_constraintTop_toBottomOf="@+id/tvEnglishNameLearned"
+        tools:text="I like to eat an apple" />
+
+    <TextView
+        android:id="@+id/tvEnglishNameLearned"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/text_english_color"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivEnglishLearned"
+        app:layout_constraintTop_toTopOf="@+id/ivEnglishLearned"
+        tools:text="Apple" />
+
+    <ImageView
+        android:id="@+id/ivEnglishLearned"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/english"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivWordLearned" />
+
+    <ImageView
+        android:id="@+id/listenEnglishLearned"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/listen_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivEnglishLearned" />
+
+    <ImageView
+        android:id="@+id/ivWordLearned"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/apple"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/btnBackLearned"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/baseline_arrow_back_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnUnlearned"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="50dp"
+        android:backgroundTint="@color/button_color"
+        android:text="Add To Unlearned List"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
