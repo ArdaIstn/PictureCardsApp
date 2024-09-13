@@ -2,7 +2,7 @@ package com.example.picturecardsapp.ui.fragments
 
 
 import android.content.Context
-import android.content.SharedPreferences
+
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.util.Log
@@ -20,29 +20,33 @@ import java.util.Locale
 
 
 class RandomWordsDetailFragment : Fragment(), TextToSpeech.OnInitListener {
+
     private lateinit var binding: FragmentRandomWordsDetailBinding
-    private lateinit var sharedPreferences: SharedPreferences
     private lateinit var textToSpeech: TextToSpeech
     private val bundle: RandomWordsDetailFragmentArgs by navArgs()
     private var isEnglish: Boolean = true
-
+    private lateinit var wordModel: WordModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        binding = FragmentRandomWordsDetailBinding.inflate(layoutInflater, container, false)
-        sharedPreferences =
-            requireContext().getSharedPreferences("learned_words", Context.MODE_PRIVATE)
-
-        textToSpeech = TextToSpeech(requireContext(), this)
-
+        binding = FragmentRandomWordsDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val wordModel = bundle.wordModel
+        initializeTextToSpeech()
+        setupUI()
+        setupListeners()
+    }
 
+    private fun initializeTextToSpeech() {
+        textToSpeech = TextToSpeech(requireContext(), this)
+    }
+
+    private fun setupUI() {
+        wordModel = bundle.wordModel
         with(binding) {
             tvEnglishName.text = wordModel.englishName
             tvTurkishName.text = wordModel.turkishName
@@ -50,69 +54,60 @@ class RandomWordsDetailFragment : Fragment(), TextToSpeech.OnInitListener {
             tvTurkishSentence.text = wordModel.turkishSentence
             ivWord.setImageResource(wordModel.image)
         }
+    }
 
-        binding.btnBack.setOnClickListener {
-            findNavController().navigateUp()
-        }
+    private fun setupListeners() {
+        binding.apply {
+            btnBack.setOnClickListener { findNavController().navigateUp() }
 
-
-        binding.listenEnglish.setOnClickListener {
-            isEnglish = true
-            speakOut(wordModel.englishSentence)
-        }
-
-        binding.listenTurkish.setOnClickListener {
-            isEnglish = false
-            speakOut(wordModel.turkishSentence)
-        }
-
-        binding.btnLearned.setOnClickListener {
-            val sharedPreferences: SharedPreferences =
-                requireActivity().getSharedPreferences("learned_words", Context.MODE_PRIVATE)
-            val editor = sharedPreferences.edit()
-            val gson = Gson()
-            val learnedWordsJson = sharedPreferences.getString("learned_words_list", null)
-            val learnedWords = if (learnedWordsJson != null) {
-                gson.fromJson(learnedWordsJson, Array<WordModel>::class.java).toMutableList()
-            } else {
-                mutableListOf()
+            listenEnglish.setOnClickListener {
+                isEnglish = true
+                speakOut(wordModel.englishSentence)
             }
 
-            if (!learnedWords.contains(wordModel)) {
-                learnedWords.add(wordModel)
-                val updatedLearnedWordsJson = gson.toJson(learnedWords)
-                editor.putString("learned_words_list", updatedLearnedWordsJson)
-                editor.apply()
+            listenTurkish.setOnClickListener {
+                isEnglish = false
+                speakOut(wordModel.turkishSentence)
             }
-            Snackbar.make(
-                it,
-                "${wordModel.englishName} added to learned words",
-                Snackbar.LENGTH_SHORT
-            ).show()
-            findNavController().navigateUp()
+
+            btnLearned.setOnClickListener {
+                markWordAsLearned()
+                Snackbar.make(it, "${wordModel.englishName} Learned!", Snackbar.LENGTH_SHORT).show()
+                findNavController().navigateUp()
+            }
         }
     }
 
+    private fun markWordAsLearned() {
+        val sharedPreferences = requireActivity().getSharedPreferences("learned_words", Context.MODE_PRIVATE)
+        val gson = Gson()
+        val learnedWordsJson = sharedPreferences.getString("learned_words_list", null)
+        val learnedWords = learnedWordsJson?.let {
+            gson.fromJson(it, Array<WordModel>::class.java).toMutableList()
+        } ?: mutableListOf()
 
-    override fun onInit(status: Int) {
-        if (status == TextToSpeech.SUCCESS) {
-            val result = textToSpeech.setLanguage(Locale.US)
-
-            if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                Log.e("TTS", "English language is not supported")
-            }
-        } else {
-            Log.e("TTS", "Initialization failed")
+        if (!learnedWords.contains(wordModel)) {
+            learnedWords.add(wordModel)
+            sharedPreferences.edit()
+                .putString("learned_words_list", gson.toJson(learnedWords))
+                .apply()
         }
     }
 
     private fun speakOut(text: String) {
-        if (isEnglish) {
-            textToSpeech.language = Locale.US
-        } else {
-            textToSpeech.language = Locale("tr", "TR") // Türkçe için dil ayarı
-        }
+        textToSpeech.language = if (isEnglish) Locale.US else Locale("tr", "TR")
         textToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null, "")
+    }
+
+    override fun onInit(status: Int) {
+        if (status == TextToSpeech.SUCCESS) {
+            val result = textToSpeech.setLanguage(Locale.US)
+            if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                Log.e("TTS", "Language not supported or missing data")
+            }
+        } else {
+            Log.e("TTS", "Initialization failed")
+        }
     }
 
     override fun onDestroy() {
@@ -122,6 +117,4 @@ class RandomWordsDetailFragment : Fragment(), TextToSpeech.OnInitListener {
         }
         super.onDestroy()
     }
-
-
 }
