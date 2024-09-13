@@ -12,7 +12,11 @@
         tools:layout="@layout/fragment_random_words">
         <action
             android:id="@+id/actionRandomWordsToDetail"
-            app:destination="@id/randomWordsDetailFragment" />
+            app:destination="@id/randomWordsDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/learnedWordsFragment"
@@ -21,7 +25,11 @@
         tools:layout="@layout/fragment_learned_words">
         <action
             android:id="@+id/actionLearnedWordsToDetail"
-            app:destination="@id/learnedWordsDetailFragment" />
+            app:destination="@id/learnedWordsDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/randomWordsDetailFragment"
@@ -36,7 +44,7 @@
         android:id="@+id/learnedWordsDetailFragment"
         android:name="com.example.picturecardsapp.ui.fragments.LearnedWordsDetailFragment"
         android:label="fragment_learned_words_detail"
-        tools:layout="@layout/fragment_learned_words_detail" >
+        tools:layout="@layout/fragment_learned_words_detail">
         <argument
             android:name="wordModel"
             app:argType="com.example.picturecardsapp.data.model.WordModel" />
